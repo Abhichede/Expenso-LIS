@@ -1,0 +1,46 @@
+<%- model_class = Income -%>
+<div class="page-header">
+  <h3>
+    <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %>
+    <span class="pull-right">
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+                  new_income_path,
+                  :class => 'btn btn-primary' %>
+    </span>
+  </h3>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:from) %></th>
+      <th><%= model_class.human_attribute_name(:amount) %></th>
+      <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name(:date) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @incomes.each do |income| %>
+      <tr>
+        <td><%= link_to income.id, income_path(income) %></td>
+        <td><%= income.from %></td>
+        <td><%= income.amount %></td>
+        <td><%= income.user.email %></td>
+        <td><%=l income.created_at %></td>
+        <td>
+          <%= link_to income_path(income), :'data-toggle' => "tooltip", :'data-placement' => "top", :title => "Show" do %>
+              <i class="fa fa-eye btn btn-default"></i>
+          <% end %>
+          <%= link_to edit_income_path(income), :'data-toggle' => "tooltip", :'data-placement' => "top", :title => "Edit" do %>
+              <i class="fa fa-edit btn btn-default"></i>
+          <% end %>
+          <%= link_to '<i class="fa fa-remove btn btn-danger"></i>'.html_safe, income_path(income),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :'data-toggle' => "tooltip", :'data-placement' => "top", :title => "Delete" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

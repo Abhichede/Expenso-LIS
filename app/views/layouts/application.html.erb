@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "ExpensoLis" %></title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%= favicon_link_tag 'linker-favicon.ico', :rel => 'shortcut icon' %>
+
+    <%= javascript_include_tag "application" %>
+
+
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/"><%= image_tag 'Linker_mini.png', class: 'responsive', height: 30 %></a>
+
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to 'Sign out', destroy_user_session_path %></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="well sidebar-nav">
+            <h3>Office Use</h3>
+            <ul class="nav nav-list">
+              <li class="nav-header">Navigate</li>
+              <li><%= link_to "Expense", office_expenses_path  %></li>
+              <li><%= link_to "Income", incomes_path  %></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="col-lg-9">
+          <%= bootstrap_flash %>
+          <%= yield %>
+        </div>
+      </div><!--/row-->
+
+      <footer>
+        <p>&copy; LINKER IT SOLUTIONS 2017</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>

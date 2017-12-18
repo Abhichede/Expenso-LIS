@@ -1,0 +1,47 @@
+<%- model_class = OfficeExpense -%>
+<div class="page-header">
+  <h3><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %>
+    <span class="pull-right">
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+                  new_office_expense_path,
+                  :class => 'btn btn-primary' %>
+    </span>
+  </h3>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:expense_type) %></th>
+      <th><%= model_class.human_attribute_name(:description) %></th>
+      <th><%= model_class.human_attribute_name(:amount) %></th>
+      <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name(:date) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @office_expenses.each do |office_expense| %>
+      <tr>
+        <td><%= link_to office_expense.id, office_expense_path(office_expense) %></td>
+        <td><%= office_expense.expense_type %></td>
+        <td><%= office_expense.description %></td>
+        <td><%= office_expense.amount %></td>
+        <td><%= office_expense.user.email %></td>
+        <td><%=l office_expense.created_at %></td>
+        <td>
+          <%= link_to office_expense_path(office_expense), :'data-toggle' => "tooltip", :'data-placement' => "top", :title => "Show" do %>
+          <i class="fa fa-eye btn btn-default"></i>
+          <% end %>
+          <%= link_to edit_office_expense_path(office_expense), :'data-toggle' => "tooltip", :'data-placement' => "top", :title => "Edit" do %>
+              <i class="fa fa-edit btn btn-default"></i>
+          <% end %>
+          <%= link_to '<i class="fa fa-remove btn btn-danger"></i>'.html_safe, office_expense_path(office_expense),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :'data-toggle' => "tooltip", :'data-placement' => "top", :title => "Delete" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
