@@ -73,7 +73,7 @@ Rails.application.configure do
       :enable_starttls_auto => true
   }
 
-  config.action_mailer.default_url_options = { host: 'heroku.com' }
+  config.action_mailer.default_url_options = { host: ENV['MAILING_HOST'] }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
