@@ -1,0 +1,26 @@
+<h3>Hello <%= @user.email %></h3>!
+
+As subjected expense was deleted by <%= @expense.user.email %><br/>
+
+Following are details
+
+<table class="table table-striped">
+  <thead>
+  <th>Expense type</th>
+  <th>Description</th>
+  <th>Amount</th>
+  <th>Date</th>
+  <th>View</th>
+  </thead>
+  <tbody>
+  <td><%= @expense.expense_type %></td>
+  <td><%= @expense.description %></td>
+  <td><%= @expense.amount %></td>
+  <td><%= @expense.created_at %></td>
+  <td><%= office_expenses_url%></td>
+  </tbody>
+</table>
+
+<small>This is auto generated mail do not reply</small>
+<small>Thanks.</small>
+<small>Linker IT Solutions.</small>

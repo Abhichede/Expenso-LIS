@@ -1,0 +1,24 @@
+<h3>Hello <%= @user.email %></h3>!
+
+As subjected income was edited by <%= @income.user.email %><br/>
+
+Following are details
+
+<table class="table table-striped">
+  <thead>
+  <th>Income from</th>
+  <th>Amount</th>
+  <th>Date</th>
+  <th>View</th>
+  </thead>
+  <tbody>
+  <td><%= @income.from %></td>
+  <td><%= @income.amount %></td>
+  <td><%= @income.created_at %></td>
+  <td><%= incomes_url %></td>
+  </tbody>
+</table>
+
+<small>This is auto generated mail do not reply</small>
+<small>Thanks.</small>
+<small>Linker IT Solutions.</small>

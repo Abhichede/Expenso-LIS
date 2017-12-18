@@ -28,6 +28,9 @@ class IncomesController < ApplicationController
 
     respond_to do |format|
       if @income.save
+        User.all.each do |user|
+          IncomesMailer.income_added_mail(@income, user).deliver
+        end
         format.html { redirect_to @income, notice: 'Income was successfully created.' }
         format.json { render :show, status: :created, location: @income }
       else
@@ -42,6 +45,9 @@ class IncomesController < ApplicationController
   def update
     respond_to do |format|
       if @income.update(income_params)
+        User.all.each do |user|
+          IncomesMailer.income_edited_mail(@income, user).deliver
+        end
         format.html { redirect_to @income, notice: 'Income was successfully updated.' }
         format.json { render :show, status: :ok, location: @income }
       else
@@ -54,6 +60,9 @@ class IncomesController < ApplicationController
   # DELETE /incomes/1
   # DELETE /incomes/1.json
   def destroy
+    User.all.each do |user|
+      IncomesMailer.income_deleted_mail(@income, user).deliver
+    end
     @income.destroy
     respond_to do |format|
       format.html { redirect_to incomes_url, notice: 'Income was successfully destroyed.' }

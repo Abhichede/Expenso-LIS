@@ -28,6 +28,9 @@ class OfficeExpensesController < ApplicationController
 
     respond_to do |format|
       if @office_expense.save
+        User.all.each do |user|
+          ExpenseMailer.expense_added_mail(@office_expense, user).deliver
+        end
         format.html { redirect_to @office_expense, notice: 'Office expense was successfully created.' }
         format.json { render :show, status: :created, location: @office_expense }
       else
@@ -42,6 +45,9 @@ class OfficeExpensesController < ApplicationController
   def update
     respond_to do |format|
       if @office_expense.update(office_expense_params)
+        User.all.each do |user|
+          ExpenseMailer.expense_edited_mail(@office_expense, user).deliver
+        end
         format.html { redirect_to @office_expense, notice: 'Office expense was successfully updated.' }
         format.json { render :show, status: :ok, location: @office_expense }
       else
@@ -54,6 +60,9 @@ class OfficeExpensesController < ApplicationController
   # DELETE /office_expenses/1
   # DELETE /office_expenses/1.json
   def destroy
+    User.all.each do |user|
+      ExpenseMailer.expense_deleted_mail(@office_expense, user).deliver
+    end
     @office_expense.destroy
     respond_to do |format|
       format.html { redirect_to office_expenses_url, notice: 'Office expense was successfully destroyed.' }
